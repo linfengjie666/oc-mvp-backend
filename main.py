@@ -37,10 +37,9 @@ app.add_middleware(
 # 配置
 # ============================================================================
 
-# 题库文件路径（相对于项目根目录）
+# 题库文件路径（与 main.py 同目录）
 QUESTION_BANK_PATH = os.path.join(
-    os.path.dirname(__file__), 
-    "..", 
+    os.path.dirname(__file__),
     "oc_mvp_mcq_v2.json"
 )
 
