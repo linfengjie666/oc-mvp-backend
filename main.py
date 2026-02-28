@@ -44,9 +44,10 @@ QUESTION_BANK_PATH = os.path.join(
 )
 
 # 解释题库文件路径（包含 ai_explanation）
+# 放在 backend/ 目录下，与 main.py 同目录
 EXPLANATION_BANK_PATH = os.path.join(
     os.path.dirname(__file__),
-    "..", "..", "Sub_Topic_Data", "1.2_Opportunity_Cost", "1.2_Opportunity_Cost_MCQ.json"
+    "1.2_Opportunity_Cost_MCQ.json"
 )
 
 DIMENSIONS = ["COST_STRUCTURE", "ALT_LOGIC", "SUNK_FILTER"]
@@ -66,26 +67,15 @@ WEAKNESS_THRESHOLD = 0.70
 def load_explanation_bank() -> Dict[str, dict]:
     """从解释题库 JSON 加载解释数据，用 uid 作为 key"""
     explanation_map = {}
+    
+    # 打印调试信息
+    resolved_path = EXPLANATION_BANK_PATH
+    print(f"=== Loading Explanation Bank ===")
+    print(f"Resolved path: {resolved_path}")
+    print(f"File exists: {os.path.exists(resolved_path)}")
+    
     try:
-        # 尝试多个可能的路径
-        possible_paths = [
-            os.path.join(os.path.dirname(__file__), "..", "..", "Sub_Topic_Data", "1.2_Opportunity_Cost", "1.2_Opportunity_Cost_MCQ.json"),
-            os.path.join(os.path.dirname(__file__), "..", "Sub_Topic_Data", "1.2_Opportunity_Cost", "1.2_Opportunity_Cost_MCQ.json"),
-            os.path.join(os.path.dirname(__file__), "..", "1.2_Opportunity_Cost_MCQ.json"),
-            os.path.join(os.path.dirname(__file__), "1.2_Opportunity_Cost_MCQ.json"),
-        ]
-        
-        exp_path = None
-        for p in possible_paths:
-            if os.path.exists(p):
-                exp_path = p
-                break
-        
-        if not exp_path:
-            print(f"Warning: Explanation bank not found in any of: {possible_paths}")
-            return explanation_map
-            
-        with open(exp_path, 'r', encoding='utf-8') as f:
+        with open(resolved_path, 'r', encoding='utf-8') as f:
             explanations = json.load(f)
         
         for exp in explanations:
@@ -93,10 +83,15 @@ def load_explanation_bank() -> Dict[str, dict]:
             if uid:
                 explanation_map[uid] = exp
         
-        print(f"Loaded {len(explanation_map)} explanations from {exp_path}")
+        print(f"SUCCESS: Loaded {len(explanation_map)} explanations from {resolved_path}")
+        print(f"Sample uids: {list(explanation_map.keys())[:5]}")
         return explanation_map
     except FileNotFoundError:
-        print(f"Warning: Explanation bank not found")
+        print(f"ERROR: Explanation bank file NOT FOUND at: {resolved_path}")
+        print(f"Please ensure 1.2_Opportunity_Cost_MCQ.json is in the backend/ folder")
+        return explanation_map
+    except Exception as e:
+        print(f"ERROR loading explanation bank: {e}")
         return explanation_map
 
 def load_question_bank() -> List[dict]:
@@ -116,21 +111,52 @@ def load_question_bank() -> List[dict]:
             # 尝试用 question_id 匹配解释
             exp = explanation_bank.get(question_id)
             
-            # 如果没找到，尝试其他可能的映射（如带/不带下划线）
+            # 如果没找到，尝试其他可能的映射
             if not exp:
-                # 尝试将 Q 替换为 _Q 或反之
-                alt_id = question_id.replace("_Q", "_Q") if "_Q" in question_id else question_id
-                exp = explanation_bank.get(alt_id)
+                # 尝试从 question_id 提取 uid 格式 (e.g., 2016_P1_Q03)
+                alt_ids = [
+                    question_id,
+                    question_id.replace("_Q", "_Q"),
+                    question_id.replace("P1_", "P1_Q") if "P1_" in question_id else question_id,
+                ]
+                for alt_id in alt_ids:
+                    if alt_id in explanation_bank:
+                        exp = explanation_bank[alt_id]
+                        break
             
             if exp:
-                # 合并解释字段
+                # 打印调试信息
+                print(f"Merging question_id={question_id}")
+                print(f"  - ai_explanation type: {type(exp.get('ai_explanation'))}")
+                print(f"  - ai_explanation_en type: {type(exp.get('ai_explanation_en'))}")
+                print(f"  - distractor_analysis: {exp.get('distractor_analysis') is not None}")
+                
+                # 合并解释字段 - 修复：处理多种字段格式
                 q["year"] = exp.get("year")
                 q["paper"] = exp.get("paper")
                 q["answer"] = exp.get("answer")
-                q["ai_logic_flow"] = exp.get("ai_explanation", {}).get("logic_flow") if exp.get("ai_explanation") else None
-                q["ai_common_trap"] = exp.get("ai_explanation", {}).get("common_trap") if exp.get("ai_explanation") else None
+                
+                # 处理 ai_explanation 字段 - 支持多种格式
+                ai_exp = exp.get("ai_explanation")
+                ai_exp_en = exp.get("ai_explanation_en")
+                
+                # ai_explanation 是对象时的处理
+                if ai_exp and isinstance(ai_exp, dict):
+                    q["ai_logic_flow"] = ai_exp.get("logic_flow")
+                    q["ai_common_trap"] = ai_exp.get("common_trap")
+                # ai_explanation_en 是字符串时的处理
+                elif ai_exp_en and isinstance(ai_exp_en, str):
+                    q["ai_logic_flow"] = ai_exp_en  # 直接使用字符串作为 logic_flow
+                    q["ai_common_trap"] = ai_exp.get("common_trap") if ai_exp else None
+                else:
+                    q["ai_logic_flow"] = None
+                    q["ai_common_trap"] = None
+                
+                # distractor_analysis 直接复制
                 q["distractor_analysis"] = exp.get("distractor_analysis")
                 merged_count += 1
+            else:
+                print(f"Warning: No explanation found for question_id={question_id}")
         
         print(f"Merged explanations for {merged_count}/{len(questions)} questions")
         print(f"Loaded {len(questions)} questions from {QUESTION_BANK_PATH}")
@@ -928,6 +954,12 @@ def get_question_feedback(req: FeedbackRequest) -> FeedbackResponse:
             detail={"message": f"Question {req.question_id} not found"}
         )
     
+    # 打印调试信息
+    print(f"Feedback request for question_id={req.question_id}")
+    print(f"  - ai_logic_flow: {question.get('ai_logic_flow')}")
+    print(f"  - ai_common_trap: {question.get('ai_common_trap')}")
+    print(f"  - distractor_analysis: {question.get('distractor_analysis')}")
+    
     # 获取正确答案
     correct_option = question.get("answer") or question.get("correct_option", "")
     selected = req.selected_option.upper()
@@ -938,6 +970,10 @@ def get_question_feedback(req: FeedbackRequest) -> FeedbackResponse:
     ai_logic_flow = question.get("ai_logic_flow") or ""
     ai_common_trap = question.get("ai_common_trap") or ""
     distractor_analysis = question.get("distractor_analysis") or {}
+    
+    # Fallback: 如果 logic_flow 为空，尝试使用 explanation 字段
+    if not ai_logic_flow and question.get("explanation"):
+        ai_logic_flow = question.get("explanation")
     
     # 构建 why_selected_wrong（如果选错）
     why_selected_wrong = ""
@@ -966,6 +1002,25 @@ def get_question_feedback(req: FeedbackRequest) -> FeedbackResponse:
     )
 
 
+# Debug endpoint
+@app.get("/debug/question/{question_id}")
+def debug_question(question_id: str):
+    """调试端点：返回题目的完整合并后对象"""
+    question = QUESTION_INDEX.get(question_id)
+    
+    if not question:
+        raise HTTPException(
+            status_code=404,
+            detail={"message": f"Question {question_id} not found"}
+        )
+    
+    return {
+        "question_id": question_id,
+        "full_question": question,
+        "fields_available": list(question.keys())
+    }
+
+
 @app.get("/")
 def root():
     return {
@@ -979,6 +1034,7 @@ def root():
             "POST /challenge/submit",
             "GET /dashboard",
             "GET /metrics",
-            "POST /question/feedback"
+            "POST /question/feedback",
+            "GET /debug/question/{question_id}"
         ]
     }
