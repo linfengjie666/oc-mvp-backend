@@ -1,0 +1,466 @@
+[
+  {
+    "uid": "2012_P1_Q02",
+    "year": 2012,
+    "paper": "P1",
+    "section": "MC",
+    "sub_topic_id": "1.2",
+    "sub_topic_name": "Opportunity Cost",
+    "cross_topic_ids": [],
+    "difficulty_level": 2,
+    "has_graph": false,
+    "question_text_en": "Mr Kwok plans to purchase a new racing car from a German automobile manufacturer and drive the car in Hong Kong. In which of the following situations will the cost of purchasing the racing car increase?",
+    "options": {
+      "A": "The first registration fee increases.",
+      "B": "The price of gasoline increases.",
+      "C": "The Euro depreciates against the Hong Kong dollar.",
+      "D": "The racing car performs poorly."
+    },
+    "answer": "A",
+    "correct_percentage": 62,
+    "distractor_analysis": {
+      "B": "Gasoline is ongoing cost, not purchase cost.",
+      "C": "Euro depreciation makes car cheaper in HK$ terms.",
+      "D": "Performance affects value, not purchase cost directly."
+    },
+    "ai_explanation": {
+      "logic_flow": "Cost of purchasing = Car price + Registration. (1) Higher registration = higher cost. (2) Gasoline is operating cost, not purchase cost. (3) Euro depreciates → cheaper in HK$ → cost decreases. (4) Poor performance affects resale value, not purchase cost. Answer: A.",
+      "common_trap": "Confusing ongoing costs with purchase cost."
+    }
+  },
+  {
+    "uid": "2013_P1_Q02",
+    "year": 2013,
+    "paper": "P1",
+    "section": "MC",
+    "sub_topic_id": "1.2",
+    "sub_topic_name": "Opportunity Cost",
+    "cross_topic_ids": [],
+    "difficulty_level": 1,
+    "has_graph": false,
+    "question_text_en": "Jeremy is going to watch a tennis match in which Li Na, a Grand Slam winner, will play. Which of the following will increase the cost to Jeremy of watching the tennis match?",
+    "options": {
+      "A": "He is 30 minutes late for the match due to traffic congestion.",
+      "B": "His view is blocked by the spectators in front of him.",
+      "C": "Due to a rainstorm, the match is extended by an hour.",
+      "D": "Li Na is injured and does not show up for the match."
+    },
+    "answer": "C",
+    "correct_percentage": 74,
+    "distractor_analysis": {
+      "A": "Being late reduces viewing time but doesn't increase total cost.",
+      "B": "Blocked view reduces enjoyment but isn't a cost.",
+      "D": "Match cancellation - would get refund or not attend."
+    },
+    "ai_explanation": {
+      "logic_flow": "Opportunity cost includes both monetary and time costs. Extension by one hour means Jeremy spends more time (opportunity cost of his time increases) AND the match costs more of his evening. The extension increases the total time committed to watching, raising the cost. Answer: C.",
+      "common_trap": "Confusing inconvenience with actual cost increase."
+    }
+  },
+  {
+    "uid": "2014_P1_Q01",
+    "year": 2014,
+    "paper": "P1",
+    "section": "A",
+    "sub_topic_id": "1.2",
+    "sub_topic_name": "Opportunity Cost",
+    "cross_topic_ids": [],
+    "difficulty_level": 4,
+    "has_graph": false,
+    "question_text_en": "A famous football team, Manchester United, visited Hong Kong for a friendly match. The day before the match, the team found the pitch in the Hong Kong Stadium had been damaged by prolonged rain and it considered cancelling the match. The opportunity cost for Manchester United to continue playing in such a poor pitch would ______ because ______.",
+    "options": {
+      "A": "increase ... there was a higher chance for the players to get injured",
+      "B": "increase ... the team was likely to have poor performance",
+      "C": "remain unchanged ... the expense on the visit to Hong Kong had already been paid",
+      "D": "remain unchanged ... the players spent the same amount of time in Hong Kong"
+    },
+    "answer": "A",
+    "correct_percentage": 32,
+    "question_style": "Direct",
+    "distractor_analysis": {
+      "B": "Poor performance is a concern but not the main opportunity cost - the key issue is the higher risk of injury which has financial implications.",
+      "C": "The expense already paid is a sunk cost and should not affect opportunity cost decisions.",
+      "D": "Time spent is the same but the quality/conditions differ, affecting the benefits received."
+    },
+    "ai_explanation_en": {
+      "logic_flow": "Opportunity cost (機會成本) is the value of the next best alternative forgone. Continuing to play on a poor pitch increases the probability of player injuries. These potential injuries would lead to: (1) Higher medical expenses. (2) Players may miss subsequent games in Premier League and Champions League. (3) These are real costs that could be avoided by not playing. The extra costs (net of penalty for breach of contract) could be avoided if they chose not to play, so the opportunity cost INCREASES.",
+      "common_trap": "Many candidates overlooked Manchester United's concern about the higher probability of its players getting injured on the poor pitch, which would cost them higher medical expenses.",
+      "key_terminology": "opportunity cost (機會成本); sunk cost (沉沒成本); marginal cost (邊際成本)"
+    },
+    "performance_report_en": "Many candidates overlooked ManU's concern about the higher probability of its players getting injured if they played on the poor pitch, which would cost them higher medical expenses and may increase their chances of losing in subsequent games."
+  },
+  {
+    "uid": "2015_P1_Q02",
+    "year": 2015,
+    "paper": "P1",
+    "section": "A",
+    "sub_topic_id": "1.2",
+    "sub_topic_name": "Opportunity Cost",
+    "cross_topic_ids": [],
+    "difficulty_level": 2,
+    "has_graph": false,
+    "question_text_en": "David can choose to take the MTR or a bus to Yuen Long. Suppose the required travel time and the fares of both options are the same in a normal situation. Which of the following will result in an increase in the opportunity cost of travelling to Yuen Long by MTR?",
+    "options": {
+      "A": "The air-conditioner on the bus is out of order.",
+      "B": "The traffic jam makes the bus trip 15 minutes longer.",
+      "C": "A signalling problem causes the travel time of the MTR to increase by 15 minutes.",
+      "D": "David feels annoyed about the news broadcast in the MTR train."
+    },
+    "answer": "C",
+    "correct_percentage": 63,
+    "question_style": "Direct",
+    "distractor_analysis": {
+      "A": "A broken air-conditioner makes the bus less attractive, which would DECREASE the opportunity cost of taking MTR (since the alternative is now worse).",
+      "B": "A longer bus trip increases the opportunity cost of taking the BUS, not the MTR. This actually makes MTR relatively more attractive.",
+      "D": "Personal annoyance is subjective and doesn't represent a measurable opportunity cost in terms of what David gives up."
+    },
+    "ai_explanation_en": {
+      "logic_flow": "Opportunity cost is the value of the next best alternative forgone. Initially, MTR and bus have equal time and fare. When the bus trip becomes longer (15 minutes more), the opportunity cost of taking the bus increases. This makes MTR relatively cheaper in comparison, so the opportunity cost of taking MTR actually decreases. Conversely, when MTR travel time increases by 15 minutes, the opportunity cost of taking MTR increases because David now gives up more time that could be spent on other activities.",
+      "common_trap": "Students often confuse which direction the opportunity cost changes. When the alternative (bus) becomes worse, the opportunity cost of choosing MTR actually decreases.",
+      "key_terminology": "opportunity cost (機會成本); alternative (替代選擇); trade-off (取捨)"
+    },
+    "performance_report_en": "Candidates generally understood the concept of opportunity cost but some confused the direction of change."
+  },
+  {
+    "uid": "2016_P1_Q03",
+    "year": 2016,
+    "paper": "P1",
+    "section": "A",
+    "sub_topic_id": "1.2",
+    "sub_topic_name": "Opportunity Cost",
+    "cross_topic_ids": [],
+    "difficulty_level": 2,
+    "has_graph": false,
+    "question_text_en": "Mr. Ng, a Hong Kong citizen, is going to travel to Tokyo for leisure. Which of the following will decrease his cost of having the trip?",
+    "options": {
+      "A": "A typhoon is approaching Tokyo right before his trip.",
+      "B": "His boss is going to treat all the staff to a free buffet during his leave.",
+      "C": "The scenery in Tokyo is better than he expected.",
+      "D": "Japanese Yen depreciates against other currencies."
+    },
+    "answer": "D",
+    "correct_percentage": 76,
+    "question_style": "Direct",
+    "distractor_analysis": {
+      "A": "Bad weather may reduce the enjoyment of the trip, but it does not reduce the monetary or time cost of travelling to Tokyo.",
+      "B": "A free buffet in Hong Kong is unrelated to the trip; it does not reduce the opportunity cost or the monetary expenses of travelling.",
+      "C": "Better scenery increases perceived benefit, not cost. Cost is what must be given up (money/time/forgone alternatives)."
+    },
+    "ai_explanation_en": "Step 1: Identify the concept. The cost of a trip includes monetary costs (e.g. exchange rate) and possibly time/opportunity costs; changes that lower required spending reduce the cost.\n\nStep 2: Analyse the scenario. Mr Ng is travelling to Tokyo; the question asks what decreases his cost.\n\nStep 3: Evaluate the options. A and C affect benefits/utility, not cost. B is a separate free meal at home, not a reduction in the resources spent on the trip. If the Japanese yen depreciates, each HK dollar buys more yen, so accommodation/food/transport in Japan become cheaper in HK$ terms.\n\nStep 4: Conclude. Choose D."
+  },
+  {
+    "uid": "2018_P1_Q02",
+    "year": 2018,
+    "paper": "P1",
+    "section": "A",
+    "sub_topic_id": "1.2",
+    "sub_topic_name": "Opportunity Cost",
+    "cross_topic_ids": [],
+    "difficulty_level": 1,
+    "has_graph": false,
+    "question_text_en": "The Chief Executive proposed to raise the recurrent education spending by $\\$5$ billion. One of her proposals was to provide a $\\$30000$ subsidy to eligible secondary school graduates studying self-financing programmes. The above proposal is related to the $\\_\\_\\_\\_$ question(s) in Economics.",
+    "options": {
+      "A": "'how to produce'",
+      "B": "'for whom to produce'",
+      "C": "'what to produce' and 'how to produce'",
+      "D": "'what to produce' and 'for whom to produce'"
+    },
+    "answer": "D",
+    "correct_percentage": 81,
+    "question_style": "Direct"
+  },
+  {
+    "uid": "2018_P1_Q03",
+    "year": 2018,
+    "paper": "P1",
+    "section": "A",
+    "sub_topic_id": "1.2",
+    "sub_topic_name": "Opportunity Cost",
+    "cross_topic_ids": [],
+    "difficulty_level": 1,
+    "has_graph": false,
+    "question_text_en": "John, a Secondary 6 graduate, is considering studying a programme either in Hong Kong or the Mainland. Which of the following situations would lower his opportunity cost of studying the programme in Hong Kong? (1) His tuition fee of the first year will be waived if he studies the programme in Hong Kong. (2) The graduates of the Mainland programme have better job prospects. (3) The qualification of the Mainland programme may not be recognised in Hong Kong.",
+    "options": {
+      "A": "(1) and (2) only",
+      "B": "(1) and (3) only",
+      "C": "(2) and (3) only",
+      "D": "(1), (2) and (3)"
+    },
+    "answer": "B",
+    "correct_percentage": 80,
+    "question_style": "Combination"
+  },
+  {
+    "uid": "2019_P1_Q03",
+    "year": 2019,
+    "paper": "P1",
+    "section": "A",
+    "sub_topic_id": "1.2",
+    "sub_topic_name": "Opportunity Cost",
+    "cross_topic_ids": [],
+    "difficulty_level": 3,
+    "has_graph": false,
+    "context_en": "",
+    "question_text_en": "Mr Lo spent $\\$ 60000$ on buying a second hand car three years ago. Suppose he can resell the car at $\\$ 2000$. Alternatively, he needs to spend $\\$ 5000$ on repairing the car before he can continue to use it. What is his cost of continuing to use the car?",
+    "options": {
+      "A": "$\\$ 2000$",
+      "B": "$\\$ 5000$",
+      "C": "$\\$ 7000$",
+      "D": "$\\$ 60000$"
+    },
+    "answer": "C",
+    "correct_percentage": 55.0,
+    "question_style": "Direct",
+    "official_ms_en": "C (55%)",
+    "distractor_analysis": {
+      "A": "Option A contains an incorrect numerical value or calculation.",
+      "B": "Option B contains an incorrect numerical value or calculation.",
+      "D": "Option D contains an incorrect numerical value or calculation."
+    },
+    "ai_explanation_en": "The correct answer is C. "
+  },
+  {
+    "uid": "2021_P1_Q03",
+    "year": 2021,
+    "paper": "P1",
+    "section": "A",
+    "sub_topic_id": "1.2",
+    "sub_topic_name": "Opportunity Cost",
+    "cross_topic_ids": [],
+    "difficulty_level": 3,
+    "has_graph": false,
+    "context_en": "",
+    "question_text_en": "After graduating from secondary school, Paul considers whether to become a full-time Key Opinion Leader $(\\mathrm{KOL})$ in social media channels or to become an e-sports player.",
+    "options": {
+      "A": "(1) and (2) only",
+      "B": "(1) and (3) only",
+      "C": "(2) and (3) only",
+      "D": "(1), (2) and (3)"
+    },
+    "answer": "A",
+    "correct_percentage": 67,
+    "question_style": "Direct",
+    "official_ms_en": " (67%)",
+    "distractor_analysis": {
+      "B": "This option incorrectly includes statement (3). An increase in the risk of social media channels being attacked by hackers would actually INCREASE the cost of being a KOL, not decrease it. Higher risk means higher expected cost (including potential losses from attacks). This would make being a KOL less attractive, not more attractive.",
+      "C": "This option incorrectly excludes statement (1) and includes statement (3). Statement (1) - receiving sponsored video equipment - reduces the cost of being a KOL (less need to purchase equipment). Statement (3) increases cost due to higher risk, so it should not be included.",
+      "D": "This option incorrectly includes statement (3). Higher risk of hacker attacks increases the expected cost of being a KOL, making it less attractive, not lowering the cost."
+    },
+    "ai_explanation_en": "This question tests understanding of opportunity cost and factors affecting the cost of choosing one option over another. The cost of being a KOL decreases when: (1) Paul receives sponsored equipment (reduces monetary cost), or (2) the e-sports salary decreases (reduces the opportunity cost, i.e., what Paul gives up). Statement (3) - increased risk of hacker attacks - would INCREASE the cost/risk of being a KOL, not decrease it. The correct answer is A: (1) and (2) only."
+  },
+  {
+    "uid": "2022_P1_Q03",
+    "year": 2022,
+    "paper": "P1",
+    "section": "A",
+    "sub_topic_id": "1.2",
+    "sub_topic_name": "Opportunity Cost",
+    "cross_topic_ids": [],
+    "difficulty_level": 4,
+    "has_graph": false,
+    "context_en": "the following factors would LEAST likely affect the cost-benefit analysis for Tommy's career choice?\nA.",
+    "question_text_en": "Tommy is planning for his future after his S. 6 graduation. He has several options and his order of preference is as follows. | First option: | Being a barista in a café | | :--- | :--- | | Second option: | Being a trainee in digital marketing | | Third option: | Being a junior fireman | Which of Coffee culture becomes more popular.",
+    "options": {
+      "A": "Coffee culture becomes more popular.",
+      "B": "More companies expand their digital marketing departments.",
+      "C": "The remuneration of junior firemen worsens.",
+      "D": "Safety measures of fire-fighting are improved drastically."
+    },
+    "answer": "C",
+    "correct_percentage": 37.0,
+    "question_style": "Direct",
+    "official_ms_en": "C (37.0%)",
+    "distractor_analysis": {
+      "A": "Incorrect. Popularisation of coffee culture increases demand for baristas (derived demand), raising their wage rate. This increases the benefit of Tommy's first option (barista), affecting his cost-benefit analysis even if it doesn't change his preference order.",
+      "B": "Incorrect. Expansion of digital marketing departments increases demand for trainees, raising their wage rate. This increases the benefit of Tommy's second option, affecting his cost-benefit analysis.",
+      "C": "Correct. Correct. The remuneration of junior firemen (third option) worsening makes it even less attractive, but since it's already the worst option, this doesn't change Tommy's preference order or significantly affect his cost-benefit analysis between his top two choices.",
+      "D": "Incorrect. Improved safety measures reduce the risk/cost of being a fireman, making the third option more attractive. This affects the cost side of Tommy's cost-benefit analysis for that option."
+    },
+    "ai_explanation_en": "This question tests understanding of opportunity cost. Cost-benefit analysis compares the benefits and costs of different options. Factors that change the benefits or costs of any option affect the analysis. However, if an option is already the least preferred and becomes even less attractive, it may not significantly affect the comparison between the top options. The correct answer is C because it correctly applies these economic principles to the given scenario."
+  },
+  {
+    "uid": "2023_P1_Q01",
+    "year": 2023,
+    "paper": "P1",
+    "section": "A",
+    "sub_topic_id": "1.2",
+    "sub_topic_name": "Opportunity Cost",
+    "cross_topic_ids": [],
+    "difficulty_level": 1,
+    "has_graph": false,
+    "context_en": "",
+    "question_text_en": "Mr Cheung bought restaurant premises 2 years ago for $\\$ 5000000$ and sells 'two-dish-rice' meal boxes at the premises. Recently, his monthly profit has decreased from $\\$ 30000$ to $\\$ 10000$ due to the opening of new restaurants nearby. A businessman offers to rent Mr Cheung's restaurant premises for a monthly rental of $\\$ 15000$. Which of the following would be included in Mr Cheung's opportunity cost of continuing to operate his 'two-dish-rice' business at the premises?",
+    "options": {
+      "A": "the $\\$ 5000000$ purchase price of the restaurant premises",
+      "B": "the $\\$ 10000$ monthly profit",
+      "C": "the $\\$ 15000$ monthly rental",
+      "D": "the $\\$ 20000$ drop in monthly profit"
+    },
+    "answer": "C",
+    "correct_percentage": 84.0,
+    "question_style": "Direct",
+    "official_ms_en": "C (84.0%)",
+    "distractor_analysis": {
+      "A": "Incorrect. This option does not correctly apply the economic concept of opportunity cost. The correct answer is C, which properly addresses the question.",
+      "B": "Incorrect. This option does not correctly apply the economic concept of opportunity cost. The correct answer is C, which properly addresses the question.",
+      "C": "Correct. This correctly applies the economic concept of opportunity cost.",
+      "D": "Incorrect. This option does not correctly apply the economic concept of opportunity cost. The correct answer is C, which properly addresses the question."
+    },
+    "ai_explanation_en": "This question tests understanding of opportunity cost. Opportunity cost is the highest-valued option forgone when making a decision. The correct answer is C because it correctly applies these economic principles to the given scenario."
+  },
+  {
+    "uid": "2024_P1_Q27",
+    "year": 2024,
+    "paper": "P1",
+    "section": "A",
+    "sub_topic_id": "4.1",
+    "sub_topic_name": "Demand and Supply: Equilibrium",
+    "cross_topic_ids": [
+      "1.2",
+      "1.3",
+      "4.5"
+    ],
+    "difficulty_level": 2,
+    "has_graph": false,
+    "question_text_en": "If there is an increase in $\\_\\_\\_\\_$",
+    "options": {
+      "A": "increase ...... increase",
+      "B": "increase ...... decrease",
+      "C": "decrease ...... increase",
+      "D": "decrease ...... decrease"
+    },
+    "answer": "A",
+    "correct_percentage": 61.0,
+    "question_style": "Direct",
+    "distractor_analysis": {
+      "A": "Correct. increase ...... increase",
+      "B": "Incorrect. This option does not correctly apply the economic concept of demand and supply: equilibrium. The correct answer (A) correctly identifies increase ...... increase...",
+      "C": "Incorrect. This option does not correctly apply the economic concept of demand and supply: equilibrium. The correct answer (A) correctly identifies increase ...... increase...",
+      "D": "Incorrect. This option does not correctly apply the economic concept of demand and supply: equilibrium. The correct answer (A) correctly identifies increase ...... increase..."
+    },
+    "ai_explanation_en": "This question tests understanding of Demand and Supply: Equilibrium. The correct answer is A because it correctly applies economic principles to the given scenario."
+  },
+  {
+    "uid": "2024_P1_Q36",
+    "year": 2024,
+    "paper": "P1",
+    "section": "A",
+    "sub_topic_id": "1.3",
+    "sub_topic_name": "Interest and Information",
+    "cross_topic_ids": [
+      "1.2",
+      "2.4",
+      "7.3"
+    ],
+    "difficulty_level": 2,
+    "has_graph": false,
+    "question_text_en": "| Nominal interest rate on bonds | $6 \\%$ | | :--- | :--- | | Expected inflation rate | $4 \\%$ | Based on the above information，the $\\_\\_\\_\\_$ of holding money is $6 \\%$ ，and the expected real rate of return of holding $\\_\\_\\_\\_$ is $-4 \\%$ ． A．cost ．．．．．．money B．cost ．．．．．．bonds C．nominal rate of return ．．．．．．money D．nominal rate of return ．．．．．bonds",
+    "options": {
+      "A": "cost ．．．．．．money",
+      "B": "cost ．．．．．．bonds",
+      "C": "nominal rate of return ．．．．．．money",
+      "D": "nominal rate of return ．．．．．bonds"
+    },
+    "answer": "A",
+    "correct_percentage": 64.0,
+    "question_style": "Direct",
+    "distractor_analysis": {
+      "A": "Correct. cost ．．．．．．money",
+      "B": "Incorrect. This option does not correctly apply the economic concept of interest and information. The correct answer (A) correctly identifies cost ．．．．．．money...",
+      "C": "Incorrect. This option does not correctly apply the economic concept of interest and information. The correct answer (A) correctly identifies cost ．．．．．．money...",
+      "D": "Incorrect. This option does not correctly apply the economic concept of interest and information. The correct answer (A) correctly identifies cost ．．．．．．money..."
+    },
+    "ai_explanation_en": "This question tests understanding of Interest and Information. The correct answer is A because it correctly applies economic principles to the given scenario."
+  },
+  {
+    "uid": "2024_P1_Q39",
+    "year": 2024,
+    "paper": "P1",
+    "section": "A",
+    "sub_topic_id": "10.2",
+    "sub_topic_name": "Monetary Policy",
+    "cross_topic_ids": [
+      "1.2",
+      "1.3",
+      "4.5"
+    ],
+    "difficulty_level": 2,
+    "has_graph": false,
+    "question_text_en": "A contractionary monetary policy is adopted in China when （1）the People＇s Bank of China（中國人民銀行）increases the required reserve ratio of commercial banks． （2）the People＇s Bank of China cuts the interest rate on its loans to commercial banks． （3）the Chinese Government raised the tax rates of the individual income tax． A．（1）only B．（3）only C．（1）and（2）only D．（2）and（3）only",
+    "options": {
+      "A": "（1）only",
+      "B": "（3）only",
+      "C": "（1）and（2）only",
+      "D": "（2）and（3）only"
+    },
+    "answer": "A",
+    "correct_percentage": 66.0,
+    "question_style": "Direct",
+    "distractor_analysis": {
+      "A": "Correct. （1）only",
+      "B": "Incorrect. This option does not correctly apply the economic concept of monetary policy. The correct answer (A) correctly identifies （1）only...",
+      "C": "Incorrect. This option does not correctly apply the economic concept of monetary policy. The correct answer (A) correctly identifies （1）only...",
+      "D": "Incorrect. This option does not correctly apply the economic concept of monetary policy. The correct answer (A) correctly identifies （1）only..."
+    },
+    "ai_explanation_en": "This question tests understanding of Monetary Policy. The correct answer is A because it correctly applies economic principles to the given scenario."
+  },
+  {
+    "uid": "2024_P1_Q44",
+    "year": 2024,
+    "paper": "P1",
+    "section": "A",
+    "sub_topic_id": "13.1",
+    "sub_topic_name": "Current Account",
+    "cross_topic_ids": [
+      "1.2",
+      "12.3"
+    ],
+    "difficulty_level": 2,
+    "has_graph": false,
+    "question_text_en": "| Year | Balance on goods (\\$ million) | Balance on services (\\$ million) | | :--- | :--- | :--- | | 2020 | -41135 | 92948 | | 2021 | 24671 | 135042 | Based on the above data, we can conclude that $\\_\\_\\_\\_$ .",
+    "options": {
+      "A": "the total value of exports of goods in 2021 was larger than that in 2020",
+      "B": "there was a current account surplus in 2020",
+      "C": "there was a balance of payments surplus in 2021",
+      "D": "the value of exports of services was larger than the value of imports of services in both 2020 and 2021"
+    },
+    "answer": "D",
+    "correct_percentage": 61.0,
+    "question_style": "Direct",
+    "distractor_analysis": {
+      "A": "Incorrect. This option does not correctly apply the economic concept of current account. The correct answer (D) correctly identifies the value of exports of services was larger than the value of imports of service...",
+      "B": "Incorrect. This option does not correctly apply the economic concept of current account. The correct answer (D) correctly identifies the value of exports of services was larger than the value of imports of service...",
+      "C": "Incorrect. This option does not correctly apply the economic concept of current account. The correct answer (D) correctly identifies the value of exports of services was larger than the value of imports of service...",
+      "D": "Correct. the value of exports of services was larger than the value of imports of services in both 2020 and 2021"
+    },
+    "ai_explanation_en": "This question tests understanding of Current Account. The correct answer is D because it correctly applies economic principles to the given scenario."
+  },
+  {
+    "uid": "2025_P1_Q01",
+    "year": 2025,
+    "paper": "P1",
+    "section": "A",
+    "sub_topic_id": "1.2",
+    "sub_topic_name": "Opportunity Cost",
+    "cross_topic_ids": [],
+    "difficulty_level": 2,
+    "has_graph": false,
+    "question_text_en": "Susan planned to watch a concert and bought a ticket of the concert for $\\$ 1500$. Soon after Susan bought the ticket, a company offered to pay her $\\$ 3000$ for a part-time job. However, the work hours of the parttime job clashed with the time of the concert. At the same time, as all tickets were sold out, her friend offered to buy her concert ticket for $\\$ 1800$.\n\nBased on the above information, at the time when Susan was deciding whether to sell the concert ticket to her friend, her opportunity cost of choosing to watch the concert would be $\\_\\_\\_\\_$ .\nA. $\\$ 3300$\nB. $\\$ 4500$\nC. $\\$ 4800$\nD. $\\$ 6300$",
+    "options": {
+      "A": "$\\$ 3300$",
+      "B": "$\\$ 4500$",
+      "C": "$\\$ 4800$",
+      "D": "$\\$ 6300$"
+    },
+    "answer": "C",
+    "correct_percentage": 66.0,
+    "question_style": "Direct",
+    "distractor_analysis": {
+      "A": "Incorrect. This only considers the $3000 job offer, but ignores the $1800 that could be received from selling the ticket. Opportunity cost includes ALL benefits forgone.",
+      "B": "Incorrect. This adds the ticket price ($1500) which is a sunk cost - it's already paid and cannot be recovered, so it's not part of opportunity cost.",
+      "C": "Correct. Opportunity cost = highest-valued option forgone = $3000 (job) + $1800 (ticket sale) = $4800. The $1500 already paid is a sunk cost.",
+      "D": "Incorrect. This incorrectly includes the $1500 ticket price, which is a sunk cost and should not be part of opportunity cost."
+    },
+    "ai_explanation_en": "Step 1: Identify what opportunity cost means - it's the highest-valued option forgone when making a choice.\n\nStep 2: At the decision point, Susan has two options:\n- Option 1: Watch the concert (forgoes $3000 job + $1800 ticket sale = $4800)\n- Option 2: Sell ticket and take job (forgoes watching the concert)\n\nStep 3: The $1500 already paid for the ticket is a sunk cost - it cannot be recovered regardless of the decision. Sunk costs should not be included in opportunity cost calculations.\n\nStep 4: Opportunity cost of watching the concert = sum of all benefits forgone = $3000 (job) + $1800 (ticket sale) = $4800.\n\nTherefore, the answer is C: $4800."
+  }
+]
