@@ -1,5 +1,5 @@
 """
-Opportunity Cost MVP - FastAPI Backend (v1.2.2)
+Opportunity Cost MVP - FastAPI Backend (v1.3)
 
 严格遵循 v1.2 规则，并修复：
 1. Attempt 只接收 question_id + selected_option，后端计算 correct
@@ -8,6 +8,7 @@ Opportunity Cost MVP - FastAPI Backend (v1.2.2)
 4. 从 oc_mvp_mcq_v2.json 加载题库
 5. 前端不返回 ability_dimension
 6. 新增 /metrics 端点用于课堂试验指标统计
+7. 新增 /question/feedback 端点用于即时反馈（v1.3）
 """
 
 import json
@@ -42,6 +43,12 @@ QUESTION_BANK_PATH = os.path.join(
     "oc_mvp_mcq_v2.json"
 )
 
+# 解释题库文件路径（包含 ai_explanation）
+EXPLANATION_BANK_PATH = os.path.join(
+    os.path.dirname(__file__),
+    "..", "..", "Sub_Topic_Data", "1.2_Opportunity_Cost", "1.2_Opportunity_Cost_MCQ.json"
+)
+
 DIMENSIONS = ["COST_STRUCTURE", "ALT_LOGIC", "SUNK_FILTER"]
 
 # Data Sufficiency 阈值
@@ -56,11 +63,76 @@ WEAKNESS_THRESHOLD = 0.70
 # 加载题库
 # ============================================================================
 
+def load_explanation_bank() -> Dict[str, dict]:
+    """从解释题库 JSON 加载解释数据，用 uid 作为 key"""
+    explanation_map = {}
+    try:
+        # 尝试多个可能的路径
+        possible_paths = [
+            os.path.join(os.path.dirname(__file__), "..", "..", "Sub_Topic_Data", "1.2_Opportunity_Cost", "1.2_Opportunity_Cost_MCQ.json"),
+            os.path.join(os.path.dirname(__file__), "..", "Sub_Topic_Data", "1.2_Opportunity_Cost", "1.2_Opportunity_Cost_MCQ.json"),
+            os.path.join(os.path.dirname(__file__), "..", "1.2_Opportunity_Cost_MCQ.json"),
+            os.path.join(os.path.dirname(__file__), "1.2_Opportunity_Cost_MCQ.json"),
+        ]
+        
+        exp_path = None
+        for p in possible_paths:
+            if os.path.exists(p):
+                exp_path = p
+                break
+        
+        if not exp_path:
+            print(f"Warning: Explanation bank not found in any of: {possible_paths}")
+            return explanation_map
+            
+        with open(exp_path, 'r', encoding='utf-8') as f:
+            explanations = json.load(f)
+        
+        for exp in explanations:
+            uid = exp.get("uid")
+            if uid:
+                explanation_map[uid] = exp
+        
+        print(f"Loaded {len(explanation_map)} explanations from {exp_path}")
+        return explanation_map
+    except FileNotFoundError:
+        print(f"Warning: Explanation bank not found")
+        return explanation_map
+
 def load_question_bank() -> List[dict]:
-    """从 JSON 文件加载题库"""
+    """从 JSON 文件加载题库，并合并解释数据"""
+    # 加载解释题库
+    explanation_bank = load_explanation_bank()
+    
     try:
         with open(QUESTION_BANK_PATH, 'r', encoding='utf-8') as f:
             questions = json.load(f)
+        
+        # 合并解释数据
+        merged_count = 0
+        for q in questions:
+            question_id = q.get("question_id")
+            
+            # 尝试用 question_id 匹配解释
+            exp = explanation_bank.get(question_id)
+            
+            # 如果没找到，尝试其他可能的映射（如带/不带下划线）
+            if not exp:
+                # 尝试将 Q 替换为 _Q 或反之
+                alt_id = question_id.replace("_Q", "_Q") if "_Q" in question_id else question_id
+                exp = explanation_bank.get(alt_id)
+            
+            if exp:
+                # 合并解释字段
+                q["year"] = exp.get("year")
+                q["paper"] = exp.get("paper")
+                q["answer"] = exp.get("answer")
+                q["ai_logic_flow"] = exp.get("ai_explanation", {}).get("logic_flow") if exp.get("ai_explanation") else None
+                q["ai_common_trap"] = exp.get("ai_explanation", {}).get("common_trap") if exp.get("ai_explanation") else None
+                q["distractor_analysis"] = exp.get("distractor_analysis")
+                merged_count += 1
+        
+        print(f"Merged explanations for {merged_count}/{len(questions)} questions")
         print(f"Loaded {len(questions)} questions from {QUESTION_BANK_PATH}")
         return questions
     except FileNotFoundError:
@@ -69,6 +141,9 @@ def load_question_bank() -> List[dict]:
 
 # 启动时加载题库
 QUESTION_BANK = load_question_bank()
+
+# 创建题库索引供快速查找（v1.3 feedback endpoint）
+QUESTION_INDEX = {q.get("question_id"): q for q in QUESTION_BANK if q.get("question_id")}
 
 # ============================================================================
 # 内存存储（模拟数据库）
@@ -123,6 +198,20 @@ class ChallengeSubmitRequest(BaseModel):
     topic_id: str = "1.2"
     weak_dimension: str
     attempts: List[Attempt]
+
+# v1.3 feedback endpoint
+class FeedbackRequest(BaseModel):
+    user_id: str
+    question_id: str
+    selected_option: str
+
+class FeedbackResponse(BaseModel):
+    question_id: str
+    selected_option: str
+    correct_option: str
+    is_correct: bool
+    explain: dict
+    source: dict
 
 # ============================================================================
 # 辅助函数
@@ -822,10 +911,65 @@ def health_check():
     return {"status": "ok"}
 
 
+# v1.3 feedback endpoint
+@app.post("/question/feedback")
+def get_question_feedback(req: FeedbackRequest) -> FeedbackResponse:
+    """
+    获取题目即时反馈（包含解释）
+    - 根据 question_id 查找题目
+    - 返回 correct_option, is_correct, explain 等信息
+    """
+    # 用索引快速查找题目
+    question = QUESTION_INDEX.get(req.question_id)
+    
+    if not question:
+        raise HTTPException(
+            status_code=404,
+            detail={"message": f"Question {req.question_id} not found"}
+        )
+    
+    # 获取正确答案
+    correct_option = question.get("answer") or question.get("correct_option", "")
+    selected = req.selected_option.upper()
+    correct = correct_option.upper()
+    is_correct = selected == correct
+    
+    # 获取解释字段
+    ai_logic_flow = question.get("ai_logic_flow") or ""
+    ai_common_trap = question.get("ai_common_trap") or ""
+    distractor_analysis = question.get("distractor_analysis") or {}
+    
+    # 构建 why_selected_wrong（如果选错）
+    why_selected_wrong = ""
+    if not is_correct and selected in distractor_analysis:
+        why_selected_wrong = distractor_analysis[selected]
+    
+    # 构建 why_correct_right
+    why_correct_right = ai_logic_flow if ai_logic_flow else ""
+    
+    # 构建返回
+    return FeedbackResponse(
+        question_id=req.question_id,
+        selected_option=req.selected_option,
+        correct_option=correct_option,
+        is_correct=is_correct,
+        explain={
+            "logic_flow": ai_logic_flow,
+            "common_trap": ai_common_trap,
+            "why_selected_wrong": why_selected_wrong,
+            "why_correct_right": why_correct_right
+        },
+        source={
+            "year": question.get("year"),
+            "paper": question.get("paper")
+        }
+    )
+
+
 @app.get("/")
 def root():
     return {
-        "message": "DSE Economics - Opportunity Cost MVP API (v1.2.2)",
+        "message": "DSE Economics - Opportunity Cost MVP API (v1.3)",
         "endpoints": [
             "GET /health",
             "POST /micro/start",
@@ -834,6 +978,7 @@ def root():
             "POST /challenge/start",
             "POST /challenge/submit",
             "GET /dashboard",
-            "GET /metrics"
+            "GET /metrics",
+            "POST /question/feedback"
         ]
     }
