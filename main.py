@@ -22,14 +22,11 @@ from datetime import datetime, date
 app = FastAPI(title="DSE Economics - Opportunity Cost MVP")
 
 # ============================================================================
-# CORS 配置（允许前端域名访问）
+# CORS 配置（允许所有前端域名访问）
 # ============================================================================
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://oc-mvp-frontend.vercel.app",
-        "http://localhost:5500"
-    ],
+    allow_origins=["*"],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
