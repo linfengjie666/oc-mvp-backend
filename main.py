@@ -286,18 +286,25 @@ def micro_submit(req: MicroSubmitRequest):
     # 精确统计 dimension_counts 和 dimension_correct
     dimension_counts = {}
     dimension_correct = {}
-    
+
     for a in attempts:
         dim = a["ability_dimension"]
-        if dim in DIMENSIONS:
-            dimension_counts[dim] = dimension_counts.get(dim, 0) + 1
-            if a["correct"]:
-                dimension_correct[dim] = dimension_correct.get(dim, 0) + 1
-    
-    # 由 counts 推导 dimension_acc
+
+        if dim not in dimension_counts:
+            dimension_counts[dim] = 0
+            dimension_correct[dim] = 0
+
+        dimension_counts[dim] += 1
+
+        if a["correct"]:
+            dimension_correct[dim] += 1
+
+    # 由 counts 推导 dimension_acc（避免 KeyError & 除以 0）
     dimension_acc = {}
-    for dim in dimension_counts:
-        dimension_acc[dim] = dimension_correct[dim] / dimension_counts[dim]
+    for dim, cnt in dimension_counts.items():
+        dimension_acc[dim] = (
+            dimension_correct[dim] / cnt if cnt > 0 else None
+        )
     
     micro_summary = {
         "session_id": str(uuid.uuid4()),
