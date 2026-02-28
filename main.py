@@ -17,18 +17,20 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional, Dict
 import uuid
-from datetime import datetime, date, timedelta
+from datetime import datetime, date
 
 app = FastAPI(title="DSE Economics - Opportunity Cost MVP")
 
 # ============================================================================
 # CORS 配置（允许前端域名访问）
 # ============================================================================
-# 生产环境可配置具体域名，目前允许所有
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=[
+        "https://oc-mvp-frontend.vercel.app",
+        "http://localhost:5500"
+    ],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -37,7 +39,7 @@ app.add_middleware(
 # 配置
 # ============================================================================
 
-# 题库文件路径（与 main.py 同目录）
+# 题库文件路径（相对于 main.py 所在目录）
 QUESTION_BANK_PATH = os.path.join(
     os.path.dirname(__file__),
     "oc_mvp_mcq_v2.json"
@@ -737,11 +739,7 @@ def get_metrics():
                 "users_became_stable": 0,
                 "eval_trigger_rate": 0.0,
                 "challenge_entry_rate": 0.0,
-                "challenge_completion_rate": 0.0,
-                "active_users_last_24h": 0,
-                "active_users_last_7d": 0,
-                "users_with_micro_last_24h": 0,
-                "users_with_micro_last_7d": 0
+                "challenge_completion_rate": 0.0
             },
             "per_user": []
         }
@@ -754,16 +752,6 @@ def get_metrics():
     users_completed_challenge_ge_1 = 0
     users_became_stable = 0
     
-    # 时间相关统计
-    now = datetime.now()
-    last_24h = now - timedelta(hours=24)
-    last_7d = now - timedelta(days=7)
-    
-    active_users_last_24h = 0
-    active_users_last_7d = 0
-    users_with_micro_last_24h = 0
-    users_with_micro_last_7d = 0
-    
     per_user = []
     
     for user_id, data in users_db.items():
@@ -772,39 +760,6 @@ def get_metrics():
         entered_challenge = data.get("entered_challenge", False)
         challenge_count = data.get("challenge_count", 0)
         stable_dims = data.get("stable_dimensions", [])
-        
-        # 时间字段
-        first_seen_at = data.get("first_seen_at")
-        last_activity_at = data.get("last_activity_at")
-        last_micro_at = data.get("last_micro_at")
-        last_challenge_at = data.get("last_challenge_at")
-        
-        # 解析时间
-        def parse_iso(ts):
-            if ts is None:
-                return None
-            try:
-                return datetime.fromisoformat(ts.replace('Z', '+00:00'))
-            except:
-                return None
-        
-        first_seen_dt = parse_iso(first_seen_at)
-        last_activity_dt = parse_iso(last_activity_at)
-        last_micro_dt = parse_iso(last_micro_at)
-        
-        # 统计最近活动时间
-        if last_activity_dt:
-            if last_activity_dt >= last_24h:
-                active_users_last_24h += 1
-            if last_activity_dt >= last_7d:
-                active_users_last_7d += 1
-        
-        # 统计最近 micro 活动
-        if last_micro_dt:
-            if last_micro_dt >= last_24h:
-                users_with_micro_last_24h += 1
-            if last_micro_dt >= last_7d:
-                users_with_micro_last_7d += 1
         
         # 获取当前 primary_dimension 状态
         primary_dim = data.get("weakness_state", {}).get("primary_dimension")
@@ -831,11 +786,7 @@ def get_metrics():
             "entered_challenge": entered_challenge,
             "challenge_count": challenge_count,
             "stable_dimensions": stable_dims,
-            "last_primary_dimension": last_primary_dim,
-            "first_seen_at": first_seen_at,
-            "last_activity_at": last_activity_at,
-            "last_micro_at": last_micro_at,
-            "last_challenge_at": last_challenge_at
+            "last_primary_dimension": last_primary_dim
         })
     
     # 计算比率
@@ -855,12 +806,7 @@ def get_metrics():
             "users_became_stable": users_became_stable,
             "eval_trigger_rate": round(eval_trigger_rate, 3),
             "challenge_entry_rate": round(challenge_entry_rate, 3),
-            "challenge_completion_rate": round(challenge_completion_rate, 3),
-            # 时间维度统计
-            "active_users_last_24h": active_users_last_24h,
-            "active_users_last_7d": active_users_last_7d,
-            "users_with_micro_last_24h": users_with_micro_last_24h,
-            "users_with_micro_last_7d": users_with_micro_last_7d
+            "challenge_completion_rate": round(challenge_completion_rate, 3)
         },
         "per_user": per_user
     }
